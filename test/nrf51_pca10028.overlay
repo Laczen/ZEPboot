@@ -1,0 +1,45 @@
+/*
+ * Copyright (c) 2019 Laczen
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/delete-node/ &storage_partition;
+/delete-node/ &slot0_partition;
+/delete-node/ &slot1_partition;
+/delete-node/ &scratch_partition;
+/delete-node/ &boot_partition;
+
+&flash0 {
+	/*
+	 * For more information, see:
+	 * http://docs.zephyrproject.org/latest/guides/dts/index.html#flash-partitions
+	 */
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		boot_partition: partition@0 {
+			label = "mcuboot";
+			reg = <0x00000000 0x8000>;
+		};
+		scratch_partition: partition@8000 {
+			label = "image-scratch";
+			reg = <0x0008000 0x800>;
+		};
+		slot0_partition: partition@8800 {
+			label = "image-0";
+			reg = <0x00008800 0x19000>;
+		};
+		slot1_partition: partition@21800 {
+			label = "image-1";
+			reg = <0x00021800 0x1d000>;
+		};
+
+		storage_partition: partition@3e800 {
+			label = "storage";
+			reg = <0x0003e800 0x0001800>;
+		};
+	};
+};

@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2019 Laczen
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/delete-node/ &storage_partition;
+/delete-node/ &slot0_partition;
+/delete-node/ &slot1_partition;
+
+&flash_sim0 {
+	/*
+	 * For more information, see:
+	 * http://docs.zephyrproject.org/latest/guides/dts/index.html#flash-partitions
+	 */
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		storage_partition: partition@1000 {
+			label = "storage";
+			reg = <0x00001000 0x00010000>;
+		};
+
+		slot0_partition: partition@11000 {
+			label = "image-0";
+			reg = <0x00011000 0x00010000>;
+		};
+		slot1_partition: partition@21000 {
+			label = "image-1";
+			reg = <0x00021000 0x00010000>;
+		};
+		scratch_partition: partition@31000 {
+			label = "image-scratch";
+			reg = <0x00031000 0x000800>;
+		};
+	};
+};
